@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Северная Америка | тест</title>
+<style>
+  :root{
+    --bg:linear-gradient(180deg,#f8fafc,#eef2ff);
+    --card:#ffffff;
+    --accent:#6d28d9;
+    --accent-2:#2563eb;
+    --muted:#6b7280;
+    --success:#16a34a;
+    --danger:#dc2626;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:var(--bg);
+    color:#0f172a;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  header{padding:28px 40px 8px}
+  h1{margin:0;font-size:26px;letter-spacing:-0.2px}
+  p.lead{margin:6px 0 0;color:var(--muted)}
+  main{width:100%;padding:24px 40px 40px}
+  .section{
+    margin:18px auto 28px;
+    max-width:1100px;
+    border-radius:14px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.6));
+    padding:18px 20px;
+    box-shadow: 0 8px 30px rgba(15,23,42,0.06);
+    transition:transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .35s;
+  }
+  .section:hover{transform:translateY(-4px); box-shadow: 0 18px 40px rgba(15,23,42,0.1)}
+  .section h2{margin:0 0 8px;font-size:18px}
+  .q{
+    padding:14px;border-radius:12px;background:rgba(255,255,255,0.9);
+    border:1px solid rgba(14,165,233,0.03);
+    margin:12px 0; display:block; transition:box-shadow .25s, transform .25s;
+  }
+  .q h3{margin:0 0 10px;font-size:15px}
+  .opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  label.opt{
+    display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;
+    border:1px solid transparent;cursor:pointer;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+    transition:transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s, background .18s;
+  }
+  label.opt:hover{transform:translateY(-4px); box-shadow:0 8px 24px rgba(16,24,40,0.06)}
+  input[type=radio], input[type=checkbox]{width:18px;height:18px;flex:0 0 18px}
+  .controls{display:flex;gap:10px;align-items:center;margin-top:12px}
+  button.btn{
+    background:linear-gradient(180deg,var(--accent),var(--accent-2));
+    color:white;border:none;padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer;
+    box-shadow:0 8px 20px rgba(99,102,241,0.12);transition:transform .12s, box-shadow .12s;
+  }
+  button.btn:active{transform:translateY(1px)}
+  button.ghost{background:transparent;border:1px solid rgba(15,23,42,0.06);color:var(--muted);padding:8px 12px;border-radius:10x}
+  .note{margin-top:10px;font-size:14px;min-height:20px;transition:all .35s;opacity:0;transform:translateY(6px)}
+  .note.show{opacity:1;transform:translateY(0)}
+  .badge{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px}
+  .badge.ok{background:rgba(16,185,129,0.12);color:var(--success);border:1px solid rgba(16,185,129,0.08)}
+  .badge.err{background:rgba(239,68,68,0.08);color:var(--danger);border:1px solid rgba(239,68,68,0.06)}
+  .modal-backdrop{position:fixed;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;z-index:60;opacity:0;visibility:hidden;transition:opacity .28s}
+  .modal-backdrop.show{opacity:1;visibility:visible}
+  .modal{width:min(720px,92%);background:linear-gradient(180deg,#ffffff,#fbfdff);padding:22px;border-radius:14px;text-align:center;box-shadow:0 18px 60px rgba(2,6,23,0.4);transform:scale(0.9);transition:transform .28s}
+  .modal.show{transform:scale(1)}
+  .confetti-canvas{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:70;opacity:0;transition:opacity .35s}
+  .confetti-canvas.show{opacity:1}
+  footer{padding:20px 40px 60px;color:var(--muted);font-size:13px}
+  .highlight-correct{animation:correctGlow .9s ease forwards}
+  .highlight-wrong{animation:wrongPulse .9s ease forwards}
+  @keyframes correctGlow{0%{box-shadow:0 0 0 rgba(16,185,129,0)}50%{box-shadow:0 8px 30px rgba(16,185,129,0.12)}100%{box-shadow:0 0 0 rgba(16,185,129,0)}}
+  @keyframes wrongPulse{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+  @media (max-width:900px){ .opts{grid-template-columns:1fr} .section{padding:14px} header{padding:18px} main{padding:18px} }
+</style>
+</head>
+<body>
+<header>
+<div style="max-width:1200px;margin:0 auto;display:flex;flex-direction:column;">
+<h1>Северная Америка | тест</h1>
+<p class="lead">ещё один тест... бро ты учись и т.д. (пожалуйста)</p>
+</div>
+</header>
+<main id="main"></main>
+<div style="max-width:1200px;margin:20px auto 40px;display:flex;gap:12px;align-items:center;justify-content:center;padding:12px 24px;z-index:10">
+<button class="btn" id="submit-all">Отправить результат</button>
+<button class="ghost" id="reset">Сбросить тест</button>
+</div>
+<div aria-hidden="true" class="modal-backdrop" id="backdrop" style="pointer-events:none">
+<div aria-modal="true" class="modal" id="modalBox" role="dialog">
+<h3 id="modal-title">Результаты теста</h3>
+<p id="modal-body"></p>
+<div style="margin-top:12px"><button class="btn" id="close-modal">Закрыть</button></div>
+</div>
+</div>
+<canvas class="confetti-canvas" id="confetti"></canvas>
+<footer>
+<div style="max-width:1200px;margin:0 auto;text-align:center">молодцы, простофили 🤝😜</div>
+</footer>
+<script>
+// ВОПРОСЫ ПО СЕВЕРНОЙ АМЕРИКЕ
+const data = [
+  {section:'Общая характеристика Северной Америки', qs:[
+    {q:'В каких полушариях расположена Северная Америка?', opts:['Полностью в северном полушарии','Только в южном','Полностью в северном и частично в западном','Только в северном'], ans:0, type:'single'},
+    {q:'Какова площадь Северной Америки?', opts:['28,2 млн кв.км','24,2 млн кв.км','20,2 млн кв.км','30,2 млн кв.км'], ans:1, type:'single'},
+    {q:'Где находятся самые высокие приливные волны в Северной Америке?', opts:['В Калифорнийском заливе','В заливе Фанди','В Гудзоновом заливе','В Мексиканском заливе'], ans:1, type:'single'},
+    {q:'Какова высота приливных волн в заливе Фанди?', opts:['20 метров','15 метров','18 метров','12 метров'], ans:2, type:'single'},
+    {q:'Какое дерево является высочайшим в Северной Америке и на Земном шаре?', opts:['Дуб','Секвойя','Эвкалипт','Баобаб'], ans:1, type:'single'},
+    {q:'Какова высота секвойи?', opts:['Свыше 120 метров','Свыше 80 метров','Свыше 100 метров','Свыше 50 метров'], ans:2, type:'single'}
+  ]},
+  {section:'Географические рекорды и крайние точки', qs:[
+    {q:'Как называется самая высокая точка Северной Америки?', opts:['Пик Витни','Гора Логан','Гора Денали (Мак-Кинли)','Вулкан Орисаба'], ans:2, type:'single'},
+    {q:'Какова высота горы Денали?', opts:['6450 метров','6250 метров','5895 метров','6190 метров'], ans:3, type:'single'},
+    {q:'Где находится самая низкая точка материка?', opts:['Миссисипская низменность','Долина Смерти','Примексиканская низменность','Большой Бассейн'], ans:1, type:'single'},
+    {q:'Какова абсолютная высота самой низкой точки Северной Америки?', opts:['-105 метров','-56 метров','-28 метров','-86 метров'], ans:3, type:'single'},
+    {q:'Как называется самая северная точка материка?', opts:['Мыс Принца Уэльского','Мыс Сент-Чарльз','Мыс Марьято','Мыс Мерчисон'], ans:3, type:'single'},
+    {q:'Как называется самая южная точка материка?', opts:['Мыс Мерчисон','Мыс Марьято','Мыс Принца Уэльского','Мыс Сент-Чарльз'], ans:1, type:'single'},
+    {q:'Как называется самая западная точка материка?', opts:['Мыс Сент-Чарльз','Мыс Марьято','Мыс Мерчисон','Мыс Принца Уэльского'], ans:3, type:'single'},
+    {q:'Как называется самая восточная точка материка?', opts:['Мыс Принца Уэльского','Мыс Марьято','Мыс Сент-Чарльз','Мыс Мерчисон'], ans:2, type:'single'}
+  ]},
+  {section:'Великие озера', qs:[
+    {q:'Сколько Великих озер в Северной Америке?', opts:['6 озер','4 озера','3 озера','5 озер'], ans:3, type:'single'},
+    {q:'Какое озеро является самым большим в Северной Америке?', opts:['Гурон','Эри','Мичиган','Верхнее'], ans:3, type:'single'},
+    {q:'Какое из Великих озер полностью расположено на территории США?', opts:['Онтарио','Гурон','Мичиган','Верхнее'], ans:2, type:'single'},
+    {q:'Какие озера делятся между США и Канадой поровну?', opts:['Только Эри и Онтарио','Только Верхнее и Мичиган','Все Великие озера','Верхнее, Гурон, Эри, Онтарио'], ans:3, type:'single'},
+    {q:'Какое озеро является самым большим не только в Северной, но и в Южной Америке?', opts:['Гурон','Онтарио','Верхнее','Мичиган'], ans:2, type:'single'}
+  ]},
+  {section:'Рельеф Северной Америки', qs:[
+    {q:'Какой рельеф преобладает в Северной Америке?', opts:['Низменный','Плоскогорный','Горный','Равнинный'], ans:3, type:'single'},
+    {q:'Какую часть материка занимают горы?', opts:['2/3','1/2','1/4','1/3'], ans:3, type:'single'},
+    {q:'Какие горы расположены на западе Северной Америки?', opts:['Скалистые горы','Кордильеры','Аппалачи','Анды'], ans:1, type:'single'},
+    {q:'Какие горы расположены на востоке Северной Америки?', opts:['Береговые хребты','Аппалачи','Скалистые горы','Кордильеры'], ans:1, type:'single'},
+    {q:'К какому типу относятся Кордильеры?', opts:['Останцовые горы','Вулканические горы','Складчато-глыбовые горы','Складчатые горы'], ans:3, type:'single'},
+    {q:'К какому типу относятся Аппалачи?', opts:['Вулканические горы','Останцовые горы','Складчатые горы','Складчато-глыбовые горы'], ans:3, type:'single'},
+    {q:'Какие низменности есть в Северной Америке?', opts:['Великая Китайская','Амазонская, Ла-Платская','Западно-Сибирская','Примексиканская, Миссисипская, Приатлантическая'], ans:3, type:'single'},
+    {q:'Какие равнины есть в Северной Америке?', opts:['Амазонская','Великие равнины, Центральные равнины','Восточно-Европейская','Декан'], ans:1, type:'single'}
+  ]},
+  {section:'Реки Северной Америки', qs:[
+    {q:'Какая река является самой длинной в Северной Америке?', opts:['Юкон','Миссури','Макензи','Миссисипи'], ans:3, type:'single'},
+    {q:'Какая река является притоком Миссисипи?', opts:['Юкон','Колумбия','Колорадо','Миссури'], ans:3, type:'single'},
+    {q:'Какая река является самой большой рекой Северного Ледовитого океана в Северной Америке?', opts:['Колумбия','Макензи','Юкон','Рио-Гранде'], ans:1, type:'single'},
+    {q:'Какие реки протекают по территории США и Мексики?', opts:['Миссури','Миссисипи','Колорадо','Рио-Гранде'], ans:3, type:'single'},
+    {q:'Какая река образует знаменитый Большой Каньон?', opts:['Миссури','Колорадо','Миссисипи','Колумбия'], ans:1, type:'single'},
+    {q:'Какая река впадает в Атлантический океан в районе Нью-Йорка?', opts:['Святого Лаврентия','Делавер','Миссисипи','Гудзон'], ans:3, type:'single'}
+  ]},
+  {section:'Озера Канады', qs:[
+    {q:'Какие крупные озера находятся в Канаде?', opts:['Виктория, Танганьика','Верхнее, Мичиган, Гурон','Титикака, Поопо','Большое Невольничье, Большое Медвежье, Виннипег'], ans:3, type:'single'},
+    {q:'Какое озеро Канады известно своими размерами?', opts:['Виннипег','Большое Медвежье','Большое Невольничье','Все перечисленные'], ans:3, type:'single'},
+    {q:'Какое озеро расположено в северо-западных территориях Канады?', opts:['Эри','Виннипег','Онтарио','Большое Медвежье'], ans:3, type:'single'},
+    {q:'Какое озеро находится в провинции Манитоба?', opts:['Большое Медвежье','Верхнее','Большое Невольничье','Виннипег'], ans:3, type:'single'}
+  ]},
+  {section:'Моря и заливы', qs:[
+    {q:'Какие моря омывают Северную Америку?', opts:['Охотское, Японское, Желтое','Средиземное, Красное, Черное','Баренцево, Карское, Лаптевых','Бофорта, Баффина, Лабрадор, Карибское'], ans:3, type:'single'},
+    {q:'Какие заливы есть в Северной Америке?', opts:['Финский, Ботнический','Бискайский, Гвинейский','Бенгальский, Персидский','Аляска, Мексиканский, Святого Лаврентия, Гудзонов, Калифорнийский, Мен'], ans:3, type:'single'},
+    {q:'Какой залив является самым большим в Северной Америке?', opts:['Калифорнийский','Аляска','Гудзонов','Мексиканский'], ans:3, type:'single'},
+    {q:'Какой залив известен самыми высокими приливами?', opts:['Святого Лаврентия','Гудзонов','Мексиканский','Фанди'], ans:3, type:'single'}
+  ]},
+  {section:'Океаны и проливы', qs:[
+    {q:'Какие океаны омывают Северную Америку?', opts:['Тихий, Индийский, Северный Ледовитый','Атлантический, Индийский, Северный Ледовитый','Тихий, Атлантический, Индийский','Тихий, Атлантический, Северный Ледовитый'], ans:3, type:'single'},
+    {q:'Какие проливы соединяют Северную Америку с другими территориями?', opts:['Малаккский, Зондский','Магелланов, Дрейка','Гибралтарский, Ла-Манш','Берингов, Девисов, Шелихова, Флоридский'], ans:3, type:'single'},
+    {q:'Какой пролив отделяет Северную Америку от Азии?', opts:['Флоридский','Шелихова','Девисов','Берингов'], ans:3, type:'single'},
+    {q:'Какой пролив соединяет Мексиканский залив с Атлантическим океаном?', opts:['Шелихова','Девисов','Берингов','Флоридский'], ans:3, type:'single'}
+  ]},
+  {section:'Вулканы и климатические пояса', qs:[
+    {q:'Какие вулканы есть в Северной Америке?', opts:['Фудзияма, Ключевская Сопка','Килиманджаро, Кения','Везувий, Этна','Колима, Орисаба, Тахумулько'], ans:3, type:'single'},
+    {q:'Какие климатические пояса представлены в Северной Америке?', opts:['Арктический, Умеренный, Субтропический','Экваториальный, Субэкваториальный, Тропический','Только умеренный','Арктический, Субарктический, Умеренный, Субтропический, Тропический, Субэкваториальный'], ans:3, type:'single'},
+    {q:'Какой климатический пояс занимает наибольшую площадь?', opts:['Тропический','Субтропический','Арктический','Умеренный'], ans:3, type:'single'},
+    {q:'В каком климатическом поясе расположена большая часть Канады?', opts:['Субтропическом','Умеренном','Субарктическом','Арктическом'], ans:1, type:'single'}
+  ]},
+  {section:'Полуострова и острова', qs:[
+    {q:'Какие крупные полуострова есть в Северной Америке?', opts:['Сомали, Индокитай','Аравийский, Индостан','Камчатка, Таймыр','Аляска, Лабрадор, Калифорния, Флорида, Юкатан'], ans:3, type:'single'},
+    {q:'Какой остров является самым крупным в мире?', opts:['Виктория','Ньюфаундленд','Баффинова Земля','Гренландия'], ans:3, type:'single'},
+    {q:'Какой остров является самым крупным в Канадском Арктическом архипелаге?', opts:['Элсмир','Виктория','Гренландия','Баффинова Земля'], ans:3, type:'single'},
+    {q:'Какие острова входят в Большие Антильские острова?', opts:['Филиппинские, Зондские','Алеутские, Командорские','Багамские, Бермудские','Куба, Ямайка, Гаити, Пуэрто-Рико'], ans:3, type:'single'},
+    {q:'Какие острова относятся к Малым Антильским островам?', opts:['Галапагосские','Багамские','Алеутские','Все мелкие острова Карибского моря'], ans:3, type:'single'},
+    {q:'Какой полуостров известен своими курортами и теплым климатом?', opts:['Юкатан','Лабрадор','Аляска','Флорида'], ans:3, type:'single'},
+    {q:'Какой полуостров расположен на северо-западе материка?', opts:['Флорида','Лабрадор','Калифорния','Аляска'], ans:3, type:'single'}
+  ]},
+  {section:'Океанические течения', qs:[
+    {q:'Какие холодные течения омывают берега Северной Америки?', opts:['Бенгельское, Перуанское','Куросио, Северо-Тихоокеанское','Гольфстрим, Аляскинское','Калифорнийское, Лабрадорское'], ans:3, type:'single'},
+    {q:'Какие теплые течения влияют на климат Северной Америки?', opts:['Оясио, Камчатское','Западных Ветров, Фолклендское','Калифорнийское, Лабрадорское','Гольфстрим, Аляскинское, Антильское, Северо-Тихоокеанское, Северо-Пассатное'], ans:3, type:'single'},
+    {q:'Какое течение оказывает наибольшее влияние на климат восточного побережья?', opts:['Аляскинское','Калифорнийское','Лабрадорское','Гольфстрим'], ans:3, type:'single'},
+    {q:'Какое течение охлаждает западное побережье США?', opts:['Антильское','Гольфстрим','Аляскинское','Калифорнийское'], ans:3, type:'single'},
+    {q:'Какое течение приносит тепло к берегам Аляски?', opts:['Северо-Пассатное','Лабрадорское','Калифорнийское','Аляскинское'], ans:3, type:'single'}
+  ]},
+  {section:'Географические объекты и особенности', qs:[
+    {q:'Где находится самый большой и глубокий каньон в мире?', opts:['В Азии - Ущелье реки Тары','В Африке - Рыбный каньон','В Южной Америке - Каньон Колка','В Северной Америке - Большой Каньон'], ans:3, type:'single'},
+    {q:'Какая река протекает через Большой Каньон?', opts:['Миссури','Миссисипи','Колумбия','Колорадо'], ans:3, type:'single'},
+    {q:'Какой залив известен как место самых высоких приливов в мире?', opts:['Аляска','Гудзонов','Мексиканский','Фанди'], ans:3, type:'single'},
+    {q:'Какое озеро является самым большим пресноводным озером в мире по площади?', opts:['Танганьика','Виктория','Байкал','Верхнее'], ans:3, type:'single'},
+    {q:'Какая горная система является самой длинной в Северной Америке?', opts:['Береговые хребты','Скалистые горы','Аппалачи','Кордильеры'], ans:3, type:'single'},
+    {q:'Какой пролив отделяет Гренландию от Баффиновой Земли?', opts:['Флоридский','Шелихова','Берингов','Девисов'], ans:3, type:'single'}
+  ]}
+];
+
+/* SHUFFLE FUNCTION - Fisher-Yates algorithm */
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+/* SHUFFLE OPTIONS IN EACH QUESTION */
+data.forEach(section => {
+  section.qs.forEach(question => {
+    const originalAns = question.ans;
+    const originalOpts = [...question.opts];
+    
+    const indices = Array.from({length: question.opts.length}, (_, i) => i);
+    const shuffledIndices = shuffleArray([...indices]);
+    
+    question.opts = shuffledIndices.map(i => originalOpts[i]);
+    
+    if (question.type === 'single') {
+      question.ans = shuffledIndices.indexOf(originalAns);
+    } else if (question.type === 'multi') {
+      question.ans = originalAns.map(ansIndex => shuffledIndices.indexOf(ansIndex));
+    }
+  });
+});
+
+/* ОСТАЛЬНОЙ КОД БЕЗ ИЗМЕНЕНИЙ */
+const main = document.getElementById('main');
+let qGlobalIndex = 0;
+const state = [];
+
+data.forEach((section)=>{
+  const secEl = document.createElement('section');
+  secEl.className = 'section';
+  const h2 = document.createElement('h2');
+  h2.textContent = section.section;
+  secEl.appendChild(h2);
+
+  let localIndex = 0;
+  section.qs.forEach((q)=>{
+    localIndex++;
+    qGlobalIndex++;
+    const qIndex = qGlobalIndex - 1;
+    state.push({answered:false, correct:false});
+    const qDiv = document.createElement('div');
+    qDiv.className = 'q';
+    qDiv.id = `q-${section.section.replace(/\s+/g,'_')}-${localIndex}`;
+    const h3 = document.createElement('h3');
+    h3.textContent = `${localIndex}. ${q.q}`;
+    qDiv.appendChild(h3);
+
+    const opts = document.createElement('div');
+    opts.className = 'opts';
+    q.opts.forEach((opt,i)=>{
+      const id = `q${qGlobalIndex}_opt${i}`;
+      const label = document.createElement('label');
+      label.className = 'opt';
+      label.htmlFor = id;
+      const input = document.createElement('input');
+      input.type = (q.type==='multi') ? 'checkbox' : 'radio';
+      input.name = `q${qGlobalIndex}`;
+      input.id = id;
+      input.value = i;
+      const span = document.createElement('span');
+      span.textContent = opt;
+      label.appendChild(input);
+      label.appendChild(span);
+      opts.appendChild(label);
+    });
+    qDiv.appendChild(opts);
+
+    const controls = document.createElement('div');
+    controls.className = 'controls';
+    const btn = document.createElement('button');
+    btn.className = 'btn';
+    btn.type = 'button';
+    btn.textContent = 'Подтвердить ответ';
+    const note = document.createElement('div');
+    note.className = 'note';
+    controls.appendChild(btn);
+    controls.appendChild(note);
+    qDiv.appendChild(controls);
+
+    btn.addEventListener('click', (() => { const currentIndex = qIndex; const currentGlobal = qGlobalIndex; return () => {
+      if(state[currentIndex].answered) return;
+      if(q.type==='single'){
+        const sel = qDiv.querySelector(`input[name='q${currentGlobal}']:checked`);
+        if(!sel){ note.textContent='Выберите вариант ответа!'; note.style.color='#ff8800'; note.classList.add('show'); return; }
+        const val = Number(sel.value);
+        if(val === q.ans){
+          note.innerHTML = `<span class="badge ok">Верно</span> Правильный ответ: ${q.opts[q.ans]}`;
+          note.classList.add('show'); note.style.color=''; state[currentIndex].correct=true;
+          const labels = qDiv.querySelectorAll('label.opt'); labels[val].classList.add('highlight-correct');
+        } else {
+          note.innerHTML = `<span class="badge err">Неверно</span> Ваш ответ: ${q.opts[val]}. Правильно: ${q.opts[q.ans]}`;
+          note.classList.add('show'); state[currentIndex].correct=false;
+          const labels = qDiv.querySelectorAll('label.opt'); if(labels[val]) labels[val].classList.add('highlight-wrong');
+          if(labels[q.ans]) labels[q.ans].classList.add('highlight-correct');
+        }
+        qDiv.querySelectorAll('input').forEach(i=>i.disabled=true);
+        btn.disabled=true;
+        state[currentIndex].answered=true;
+        qDiv.animate([{transform:'scale(1)'},{transform:'scale(1.01)'}],{duration:260,fill:'forwards',easing:'cubic-bezier(.2,.9,.3,1)'});
+        window.scrollBy({top:200,behavior:'smooth'});
+      } else if(q.type==='multi'){
+        const checked = [...qDiv.querySelectorAll(`input[name='q${currentGlobal}']:checked`)].map(i=>Number(i.value)).sort();
+        if(checked.length===0){ note.textContent='Выберите варианты ответа!'; note.style.color='#ff8800'; note.classList.add('show'); return; }
+        const expected = q.ans.slice().sort();
+        const equal = (checked.length===expected.length) && checked.every((v,i)=>v===expected[i]);
+        if(equal){
+          note.innerHTML = `<span class="badge ok">Верно</span> Вы выбрали все правильные варианты.`;
+          note.classList.add('show'); state[currentIndex].correct=true;
+          expected.forEach(idx=>{ qDiv.querySelectorAll('label.opt')[idx].classList.add('highlight-correct'); });
+        } else {
+          const correctList = expected.map(i=>q.opts[i]).join(', ');
+          const yourList = checked.map(i=>q.opts[i]).join(', ');
+          note.innerHTML = `<span class="badge err">Неверно</span> Ваш выбор: ${yourList || '—'}. Правильные: ${correctList}.`;
+          note.classList.add('show'); state[currentIndex].correct=false;
+          expected.forEach(idx=>{ qDiv.querySelectorAll('label.opt')[idx].classList.add('highlight-correct'); });
+        }
+        qDiv.querySelectorAll('input').forEach(i=>i.disabled=true);
+        btn.disabled=true;
+        state[currentIndex].answered=true;
+        qDiv.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}],{duration:420, easing:'ease-out'});
+        window.scrollBy({top:200,behavior:'smooth'});
+      }
+    }})());
+
+    secEl.appendChild(qDiv);
+  });
+
+  main.appendChild(secEl);
+});
+
+const backdrop = document.getElementById('backdrop');
+const modalBox = document.getElementById('modalBox');
+const modalBody = document.getElementById('modal-body');
+const confettiCanvas = document.getElementById('confetti');
+let confettiCtx = confettiCanvas.getContext('2d');
+let confettiParticles = [];
+function initConfetti(){
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+function launchConfetti(){
+  initConfetti();
+  confettiParticles = [];
+  const colors = ['#ef4444','#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899'];
+  for(let i=0;i<200;i++){
+    confettiParticles.push({
+      x: Math.random()*confettiCanvas.width,
+      y: -Math.random()*confettiCanvas.height,
+      vx: (Math.random()-0.5)*6,
+      vy: Math.random()*6+2,
+      size: Math.random()*8+4,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      rot: Math.random()*360,
+      vr: (Math.random()-0.5)*10
+    });
+  }
+  confettiCanvas.classList.add('show');
+  renderConfetti();
+  setTimeout(()=>{ confettiCanvas.classList.remove('show'); }, 5200);
+}
+let confettiAnimId = null;
+function renderConfetti(){
+  if(!confettiCtx) confettiCtx = confettiCanvas.getContext('2d');
+  confettiCtx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
+  for(let p of confettiParticles){
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.12;
+    p.rot += p.vr;
+    confettiCtx.save();
+    confettiCtx.translate(p.x,p.y);
+    confettiCtx.rotate(p.rot*Math.PI/180);
+    confettiCtx.fillStyle = p.color;
+    confettiCtx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6);
+    confettiCtx.restore();
+  }
+  confettiParticles = confettiParticles.filter(p=>p.y < confettiCanvas.height + 50);
+  if(confettiParticles.length>0){
+    confettiAnimId = requestAnimationFrame(renderConfetti);
+  } else {
+    if(confettiAnimId) cancelAnimationFrame(confettiAnimId);
+    confettiAnimId = null;
+  }
+}
+
+document.getElementById('submit-all').addEventListener('click', ()=>{
+  const answered = state.filter(s=>s.answered).length;
+  const correct = state.filter(s=>s.correct).length;
+  const percent = Math.round((correct/state.length)*100);
+  modalBody.innerHTML = `<strong style="font-size:22px">${correct} / ${state.length} (${percent}%)</strong><p style="margin-top:8px;color:var(--muted)">Отвечено: ${answered} вопросов.</p>`;
+  backdrop.style.pointerEvents = 'auto';
+  backdrop.classList.add('show');
+  modalBox.classList.add('show');
+  launchConfetti();
+});
+
+document.getElementById('close-modal').addEventListener('click', ()=>{
+  backdrop.classList.remove('show');
+  modalBox.classList.remove('show');
+  backdrop.style.pointerEvents = 'none';
+});
+
+document.getElementById('reset').addEventListener('click', ()=>{
+  if(!confirm('Сбросить тест и начать заново?')) return;
+  state.forEach((s,idx)=>{ s.answered=false; s.correct=false; });
+  document.querySelectorAll('input').forEach(i=>{ i.disabled=false; i.checked=false; });
+  document.querySelectorAll('button.btn').forEach(b=>b.disabled=false);
+  document.querySelectorAll('.note').forEach(n=>{ n.textContent=''; n.classList.remove('show'); });
+  document.querySelectorAll('label.opt').forEach(l=>{ l.classList.remove('highlight-correct','highlight-wrong'); });
+  backdrop.classList.remove('show');
+  modalBox.classList.remove('show');
+  backdrop.style.pointerEvents = 'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+window.addEventListener('resize', initConfetti);
+initConfetti();
+</script>
+</body>
+</html>
